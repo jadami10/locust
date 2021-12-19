@@ -197,7 +197,7 @@
     <script>
         {% include 'stats_data.html' %}
         var rpsChart = new LocustLineChart($(".charts-container"), "Total Requests per Second", ["RPS", "Failures/s"], "reqs/s", ['#00ca5a', '#ff6d6d']);
-        var responseTimeChart = new LocustLineChart($(".charts-container"), "Response Times (ms)", ["Median Response Time", "95% percentile"], "ms");
+        var responseTimeChart = new LocustLineChart($(".charts-container"), "Response Times (ms)", ["Median Response Time", "90% percentile", "99% percentile", "99.9% percentile", "Max Response Time"], "ms");
         var usersChart = new LocustLineChart($(".charts-container"), "Number of Users", ["Users"], "users");
 
         if(stats_history["time"].length > 0){
@@ -216,6 +216,7 @@
                     {data: stats_history["response_time_percentile_90"]},
                     {data: stats_history["response_time_percentile_99"]},
                     {data: stats_history["response_time_percentile_999"]},
+                    {data: stats_history["response_time_percentile_max"]},
                 ]
             });
 

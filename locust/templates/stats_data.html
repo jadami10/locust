@@ -6,6 +6,7 @@
 {% set response_time_percentile_90_data = [] %}
 {% set response_time_percentile_99_data = [] %}
 {% set response_time_percentile_999_data = [] %}
+{% set response_time_percentile_max_data = [] %}
 {% for r in history %}
     {% do time_data.append(r.time) %}
     {% do user_count_data.append({"value": r.user_count}) %}
@@ -15,6 +16,7 @@
     {% do response_time_percentile_90_data.append({"value": r.response_time_percentile_90, "users": r.user_count}) %}
     {% do response_time_percentile_99_data.append({"value": r.response_time_percentile_99, "users": r.user_count}) %}
     {% do response_time_percentile_999_data.append({"value": r.response_time_percentile_999, "users": r.user_count}) %}
+    {% do response_time_percentile_max_data.append({"value": r.response_time_percentile_max, "users": r.user_count}) %}
 {% endfor %}
 var stats_history = {
     "time": {{ time_data | tojson }}.map(server_time => new Date(new Date().setUTCHours(...(server_time.split(":")))).toLocaleTimeString()),
@@ -25,5 +27,6 @@ var stats_history = {
     "response_time_percentile_90": {{ response_time_percentile_90_data | tojson }},
     "response_time_percentile_99": {{ response_time_percentile_99_data | tojson }},
     "response_time_percentile_999": {{ response_time_percentile_999_data | tojson }},
+    "response_time_percentile_max": {{ response_time_percentile_max_data | tojson }},
     "markers": [],
 };

@@ -292,6 +292,9 @@ class WebUI:
                 report["total_rps"] = stats[len(stats) - 1]["current_rps"]
                 report["fail_ratio"] = environment.runner.stats.total.fail_ratio
                 report[
+                    "current_response_time_percentile_max"
+                ] = environment.runner.stats.total.get_current_response_time_percentile(1.0)
+                report[
                     "current_response_time_percentile_999"
                 ] = environment.runner.stats.total.get_current_response_time_percentile(0.999)
                 report[
