@@ -795,7 +795,9 @@ def stats_history(runner):
                 "time": datetime.datetime.utcnow().strftime("%H:%M:%S"),
                 "current_rps": stats.total.current_rps or 0,
                 "current_fail_per_sec": stats.total.current_fail_per_sec or 0,
-                "response_time_percentile_95": stats.total.get_current_response_time_percentile(0.95) or 0,
+                "response_time_percentile_999": stats.total.get_current_response_time_percentile(0.999) or 0,
+                "response_time_percentile_99": stats.total.get_current_response_time_percentile(0.99) or 0,
+                "response_time_percentile_90": stats.total.get_current_response_time_percentile(0.90) or 0,
                 "response_time_percentile_50": stats.total.get_current_response_time_percentile(0.5) or 0,
                 "user_count": runner.user_count or 0,
             }

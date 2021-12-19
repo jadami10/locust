@@ -219,7 +219,9 @@ function update_stats_charts(){
             xAxis: {data: stats_history["time"]},
             series: [
                 {data: stats_history["response_time_percentile_50"], markLine: createMarkLine()},
-                {data: stats_history["response_time_percentile_95"]},
+                {data: stats_history["response_time_percentile_90"]},
+                {data: stats_history["response_time_percentile_99"]},
+                {data: stats_history["response_time_percentile_999"]},
             ]
         });
 
@@ -234,7 +236,7 @@ function update_stats_charts(){
 
 // init charts
 var rpsChart = new LocustLineChart($(".charts-container"), "Total Requests per Second", ["RPS", "Failures/s"], "reqs/s", ['#00ca5a', '#ff6d6d']);
-var responseTimeChart = new LocustLineChart($(".charts-container"), "Response Times (ms)", ["Median Response Time", "95% percentile"], "ms");
+var responseTimeChart = new LocustLineChart($(".charts-container"), "Response Times (ms)", ["Median Response Time", "90% percentile", "99% percentile", "99.9% percentile"], "ms");
 var usersChart = new LocustLineChart($(".charts-container"), "Number of Users", ["Users"], "users");
 charts.push(rpsChart, responseTimeChart, usersChart);
 update_stats_charts()
@@ -263,7 +265,9 @@ function updateStats() {
                     stats_history["current_rps"].push({"value": null});
                     stats_history["current_fail_per_sec"].push({"value": null});
                     stats_history["response_time_percentile_50"].push({"value": null});
-                    stats_history["response_time_percentile_95"].push({"value": null});
+                    stats_history["response_time_percentile_90"].push({"value": null});
+                    stats_history["response_time_percentile_99"].push({"value": null});
+                    stats_history["response_time_percentile_999"].push({"value": null});
                 }
 
                 // update stats chart to ensure the stop spacing appears as part 
@@ -300,7 +304,9 @@ function updateStats() {
             stats_history["current_rps"].push({"value": total.current_rps, "users": report.user_count});
             stats_history["current_fail_per_sec"].push({"value": total.current_fail_per_sec, "users": report.user_count});
             stats_history["response_time_percentile_50"].push({"value": report.current_response_time_percentile_50, "users": report.user_count});
-            stats_history["response_time_percentile_95"].push({"value": report.current_response_time_percentile_95, "users": report.user_count});
+            stats_history["response_time_percentile_90"].push({"value": report.current_response_time_percentile_90, "users": report.user_count});
+            stats_history["response_time_percentile_99"].push({"value": report.current_response_time_percentile_99, "users": report.user_count});
+            stats_history["response_time_percentile_999"].push({"value": report.current_response_time_percentile_999, "users": report.user_count});
             update_stats_charts();
 
         } catch(i){

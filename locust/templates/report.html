@@ -213,7 +213,9 @@
                 xAxis: {data: stats_history["time"]},
                 series: [
                     {data: stats_history["response_time_percentile_50"]},
-                    {data: stats_history["response_time_percentile_95"]},
+                    {data: stats_history["response_time_percentile_90"]},
+                    {data: stats_history["response_time_percentile_99"]},
+                    {data: stats_history["response_time_percentile_999"]},
                 ]
             });
 
